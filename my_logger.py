@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod 
 
 
 class LogSettings:
@@ -193,7 +193,6 @@ class ConsoleLogger(LoggerBase):
         :param log_settings: The log settings for formatting.
         """
         self.log_settings = log_settings
-        self.prev_log: Optional[LogEntry] = None
 
     def log(self, message: str, log_type: LogType = LOG_TYPES.DEBUG):
         """
@@ -204,11 +203,7 @@ class ConsoleLogger(LoggerBase):
         """
         log_entry = LogEntry(message, log_type)
         log_msg = create_log_message(log_entry, self.log_settings)
-
-        if self.prev_log and self.prev_log.log_type != log_type:
-            log_msg = "\n" + log_msg
         print(log_msg)
-        self.prev_log = log_entry
 
 
 class Logger:
@@ -257,14 +252,14 @@ class Logger:
             logger.log(message, log_type)
 
 if __name__ == '__main__':
-    logger = Logger()
-    logger.file_logger.clear_logs_from_file()
+    f_logger = FileLogger()
+    f_logger.clear_logs_from_file()
 
     try:
         for i in range(50, -5, -1):
             if 100 % i == 0:
-                logger.log_on_all(f"{i} is a factor of 100", LOG_TYPES.WARNING)
+                f_logger.log(f"{i} is a factor of 100", LOG_TYPES.WARNING)
             else:
-                logger.log_on_all(f"{i} gives reminder {100 % i} when dividing 100", LOG_TYPES.DEBUG)
+                f_logger.log(f"{i} gives reminder {100 % i} when dividing 100", LOG_TYPES.DEBUG)
     except Exception as e:
-        logger.log_on_all(str(e), LOG_TYPES.ERROR)
+        f_logger.log(str(e), LOG_TYPES.ERROR)
