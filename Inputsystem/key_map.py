@@ -14,14 +14,18 @@ PARENT_000 = create_direct_key_hash("__/0/PARENT_000/__", "Parent 000", b'\x00',
 PARENT_224 = create_direct_key_hash("__/0/PARENT_224/__", "Parent 224", b'\xe0', False)
 UNKNOWN_KEY = create_direct_key_hash("__/!/UNKNOWN_KEY/__", "Unknown", None, False)
 
-EXTENDED_KEYS = {PARENT_000: {}, PARENT_224: {}}
+EXTENDED_KEYS = {
+    PARENT_000["code"]: {},
+    PARENT_224["code"]: {}
+}
 
 
 def create_extended_key_hash(key_id: str, key_name: str, key_repr: str, key_code: bytes, parent_hash: dict):
     key_hash = {"id": key_id, "name": key_name, "repr": key_repr, 
                 "code": key_code, "parent": parent_hash}
-    EXTENDED_KEYS[parent_hash][key_code] = key_hash
+    EXTENDED_KEYS[parent_hash["code"]][key_code] = key_hash
     return key_hash
+
 
 
 SMALL_A = create_direct_key_hash("__/1/SMALL_A/__", "[a]", b"a")
