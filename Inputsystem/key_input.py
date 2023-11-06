@@ -45,11 +45,13 @@ def check_for_key_press():
 
 def get_key():
     char = get_char()
+
     if char == PARENT_224["code"]:
         extended_char = get_char()
-        return EXTENDED_KEYS[PARENT_224].get(extended_char, UNKNOWN_KEY)
+        key = EXTENDED_KEYS[char].get(extended_char, UNKNOWN_KEY)
     elif char == PARENT_000["code"]:
         extended_char = get_char()
-        return EXTENDED_KEYS[PARENT_000].get(extended_char, UNKNOWN_KEY)
+        key = EXTENDED_KEYS[char].get(extended_char, UNKNOWN_KEY)
     else:
-        return DIRECT_KEYS.get(char, UNKNOWN_KEY)
+        key = DIRECT_KEYS.get(char, UNKNOWN_KEY)
+
