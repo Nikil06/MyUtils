@@ -1,3 +1,3 @@
 # MyUtils
 
-This consists of codesi created which might be reusable
+This consists of codes i created which might be reusable
